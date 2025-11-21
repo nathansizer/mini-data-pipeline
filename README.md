@@ -16,3 +16,6 @@ Nathan Sizer – [LinkedIn](https://www.linkedin.com/in/nathan-sizer)
 - Cloud integration.
 - 1 page PDF of insight from the data.
 - Notebook or report with workings for insights and visualizations.
+
+## My Process and Decisions
+Firstly, I wanted to tackle the FBRef API. Unfortunately I keep receiving HTTP 500 errors (internal server error), so without knowing the ins and outs, I have written code which I believe should work when the server is capable of filling the request. As a workaround to this, I have taken the example team data from the FBR API, which is for Arsenal in the 2018/19 season. I'm aware this isn't specifically what the task brief wanted, however given the apparent limitations the API was facing, having some data for the later steps of the task is better than having none at all.
