@@ -183,3 +183,5 @@ cython_debug/
 # My files to ignore
 test/
 fbr_key.txt
+aws_key.txt
+aws_secret.txt

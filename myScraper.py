@@ -2,6 +2,8 @@ import requests
 import pandas as pd
 import ScraperFC as sfc
 import json
+import boto3
+import os
 
 def scrape_transfermarkt():
     """
@@ -56,7 +58,7 @@ def main():
     """
 
     #scrape from Transfermarkt
-    tm_df = scrape_transfermarkt()
+    #tm_df = scrape_transfermarkt()
 
     """
     #scrape from FBRef
@@ -69,14 +71,39 @@ def main():
     """
 
     #save the data to the raw subdirectory
-    tm_df.to_csv("./raw/tm_raw_teamdata.csv")
+    #tm_df.to_csv("./raw/tm_raw_teamdata.csv")
 
     """
     commenting, as mentioned above
 
     with open("./raw/fbr_raw_teamdata.json", "w") as f:
         json.dump(fbref_json, "./raw/fbr_raw_teamdata.json")
-    """    
+    """
+
+    #upload the raw data into the s3 bucket
+    #first, get my aws access keys
+    #as I don't want them to be publically available in the git repo, they'll be read from a hidden file
+    aws_file = open("aws_key.txt")
+    secret_file = open("aws_secret.txt")
+    aws_key = aws_file.read()
+    secret_key = secret_file.read()
+
+    #create a boto3 client
+    client = boto3.client(
+        "s3",
+        aws_access_key_id = aws_key,
+        aws_secret_access_key = secret_key)
+
+    #upload all files from the raw folder
+    upload_file_bucket = "nathans-pipeline-bucket"
+
+    #the following should be done in a for loop, but I was getting a strange file not found error, so it's been done manually
+    upload_file_key = "raw/tm_raw_teamdata.csv"
+    client.upload_file("./raw/tm_raw_teamdata.csv", upload_file_bucket, upload_file_key)
+
+    upload_file_key = "raw/fbr_raw_teamdata.json"
+    client.upload_file("./raw/fbr_raw_teamdata.json", upload_file_bucket, upload_file_key)
+
 
 if __name__ == "__main__":
     main()
