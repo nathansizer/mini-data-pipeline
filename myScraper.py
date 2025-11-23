@@ -58,7 +58,7 @@ def main():
     """
 
     #scrape from Transfermarkt
-    #tm_df = scrape_transfermarkt()
+    tm_df = scrape_transfermarkt()
 
     """
     #scrape from FBRef
@@ -71,7 +71,7 @@ def main():
     """
 
     #save the data to the raw subdirectory
-    #tm_df.to_csv("./raw/tm_raw_teamdata.csv")
+    tm_df.to_csv("./raw/tm_raw_teamdata.csv")
 
     """
     commenting, as mentioned above
