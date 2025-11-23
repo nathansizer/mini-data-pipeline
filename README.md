@@ -29,3 +29,5 @@ As number 7 was the result, our team for this report will be Blackburn._
 Now I'm going to get to work on scraping from Transfermarkt. I'm going to be using the ScraperFC Python package, [more can be found here.](https://pypi.org/project/ScraperFC/) I simply want to initially scrape details about every championship player, as we can then clean the data to get exactly what we want. Handily, the ScraperFC library handles everything for us, and returns data from Transfermarkt in a dataframe. However, the data in this dataframe still needs to be cleaned by us.
 
 After creating separate scripts for scraping data from each of our two sources, I decided to combine them into one main (and production-ready) script, which then stores the raw data in a sub-folder, ready to be cleaned later on.
+
+Once scraped, we can create local files of the raw data, before uploading to our cloud storage. I've chosen to use AWS, as it is a platform I have previous knowledge of, as well as being thr preferred cloud provider outlined in the job description. As an added bonus, everything I'll be doing here is available in the free tier of AWS when creating a new personal account.
