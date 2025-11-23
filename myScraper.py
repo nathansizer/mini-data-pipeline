@@ -19,7 +19,7 @@ def scrape_transfermarkt():
 
     return tm_players_df
 
-def scrapr_fbref():
+def scrape_fbref():
     """
     This function uses the requests package to scrape the FBRef API.
 
@@ -49,3 +49,34 @@ def scrapr_fbref():
     #print(response)
 
     return (response.json())
+
+def main():
+    """
+    The main function combines the scraper functions, and saves to the raw file directory
+    """
+
+    #scrape from Transfermarkt
+    tm_df = scrape_transfermarkt()
+
+    """
+    #scrape from FBRef
+    fbr_json = scrape_fbref()
+
+    Note here: As FBRef keeps returning HTML 500 codes (as explained in README file in the repo),
+    I'm commenting this function out as I'm placing the data there manually. The logic is the exact same,
+    it's just a little "bodge" to make everything work as intended. As such, the saving of this file
+    will also be commented out below.
+    """
+
+    #save the data to the raw subdirectory
+    tm_df.to_csv("./raw/tm_raw_teamdata.csv")
+
+    """
+    commenting, as mentioned above
+
+    with open("./raw/fbr_raw_teamdata.json", "w") as f:
+        json.dump(fbref_json, "./raw/fbr_raw_teamdata.json")
+    """    
+
+if __name__ == "__main__":
+    main()
