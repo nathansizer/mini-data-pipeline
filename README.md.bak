@@ -50,6 +50,8 @@ From here, the next step is to integrate all of the above with an AWS EC2 instan
 
 After cloning the git repo into the EC2 instance, I had to install the packages which are required in the project (see requirements.txt for all packages used). Once the setup was complete, I was able to run the scraper and cleaner scripts on my EC2 instance, and view the files in the S3 bucket. Proof of which is below:\
 ![The scraper script running on my EC2 instance](images/scraper.png)\
+
 ![Raw data stored in the S3 bucket]{images/raw_s3.png}\
+
 ![Clean data stored in the S3 bucket]{images/clean_s3.png}\
 end text
