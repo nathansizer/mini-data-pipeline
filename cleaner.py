@@ -44,7 +44,15 @@ def clean_tm(tm_df):
 
     return tm_df
 
-def upload_cleaned_data(client):
+def upload_cleaned_data(client, bucket):
+    """
+    This function takes everything in the folder containing cleaned data and uploads it to the S3 bucket
+    """
+
+    #loop through each file and send to the S3 bucket
+    for file in os.listdir("./data/"):
+        upload_key = "data/" +str(file)
+        client.upload_file("./"+upload_key, bucket, upload_key)
     
 
 def main():
@@ -99,7 +107,7 @@ def main():
     tm_df.to_csv("./data/tm.csv")
 
     #now we want to upload all our clean data to the correct area of the S3 bucket
-    
+    upload_cleaned_data(client, bucket)
 
 if __name__ == "__main__":
     main()
