@@ -2,10 +2,11 @@ import pandas as pd
 import json
 import boto3
 import os
+from io import StringIO
 
-def clean_fbref():
+def clean_fbref(json_data):
     """
-    This function takes raw FBRef data, then transforms the json data to a dataframe
+    This function takes raw FBRef json data, then transforms the json data to a dataframe
 
     This returns a dataframs for a 'stat group' (i.e. attacking stats)
     """
@@ -29,13 +30,33 @@ def main():
         aws_access_key_id = aws_key,
         aws_secret_access_key = secret_key)
 
+    #specify the s3 bucket
     bucket = "nathans-pipeline-bucket"
 
+    #FBRef data
+    #get the s3 response object for our raw FBRef data
     obj = client.get_object(Bucket=bucket, Key="raw/fbr_raw_teamdata.json")
 
-    raw_json = json.loads(obj["Body"].read())
+    #extract the json data
+    fbr_json = json.loads(obj["Body"].read())
 
-    print(raw_json)
+    #Transfermarkt data
+    #get s3 response object
+    obj = client.get_object(Bucket=bucket, Key="raw/tm_raw_teamdata.csv")
+    tm_body = obj["Body"].read().decode("utf-8")
+    tm_df = pd.read_csv(StringIO(tm_body))
+
+    #from here, I want to separate the FBRef json file into each "stat group" and transform each into its own dataframe
+    #note: I'm not taking every group, just ones I'm going to use in my report, purely for the sake of time
+
+    #print(fbr_json["data"][0]["stats"]["keepers"])
+    fbr_stat_groups = ["stats","keepers","shooting","passing","defense","possession","playingtime","misc"]
+
+    #iterate through the list and transform the json into a csv file
+    for grp in fbr_stat_groups:
+        grp_json = fbr_json["data"][0]["stats"][grp]
+        cleaned_data = clean_fbref(grp_json)
+        cleaned_data.to_csv("./data/"+grp+".csv")
 
 if __name__ == "__main__":
     main()
