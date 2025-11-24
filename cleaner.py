@@ -18,6 +18,9 @@ def clean_tm(tm_df):
     in other words, all non-Blackburn players will be removed
     This returns a dataframe of all the transfermarkt data passed in, after cleaning changes have been made
     """
+    #remove all non-Blackburn players
+    tm_df = tm_df.drop(tm_df.index[tm_df["Team"] != "Blackburn"])
+    
     #drop all columns considered unnecessary
     tm_df = tm_df.drop("Unnamed: 0", axis=1)
     tm_df = tm_df.drop("Value last updated", axis=1)
@@ -31,9 +34,6 @@ def clean_tm(tm_df):
     tm_df = tm_df.drop("Joined", axis=1)
     tm_df = tm_df.drop("Other positions", axis=1)
 
-    #remove all non-Blackburn players
-    tm_df = tm_df.drop(tm_df.index[tm_df["Team"] != "Blackburn"])
-
     #drop all players with missing data
     tm_df = tm_df.dropna()
 
@@ -41,6 +41,9 @@ def clean_tm(tm_df):
     tm_df["Value"] = tm_df["Value"].str.replace("€", "", regex=False)
     tm_df["Value"] = tm_df["Value"].str.replace("k", "000", regex=False)
     tm_df["Value"] = tm_df["Value"].str.replace(".", "", regex=False).str.replace("m", "0000", regex=False)
+
+    #convert the value column from string to int, for easier report processing
+    tm_df["Value"] = tm_df["Value"].astype(int)
 
     return tm_df
 
