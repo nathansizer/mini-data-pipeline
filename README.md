@@ -49,3 +49,5 @@ Now that we can gather and store raw data, the next step is to clean and transfo
 From here, the next step is to integrate all of the above with an AWS EC2 instance. By running everything natively in the cloud, we can access our data whenever, and wherever we want, but also inclue scheduling and automation as we can ensure the VM instance will always be running when we need it. I decided to launch an EC2 instance running Ubuntu, as I am very familiar with this operating system, and would incur no extra cost (compared to a distribution such as Red Hat).
 
 After cloning the git repo into the EC2 instance, I had to install the packages which are required in the project (see requirements.txt for all packages used). Once the setup was complete, I was able to run the scraper and cleaner scripts on my EC2 instance, and view the files in the S3 bucket. Proof of which is below:\
+![The scraper script running on my EC2 instance](images/scraper.png)\
+end text
