@@ -54,4 +54,11 @@ Raw data stored in the S3 bucket:
 ![Raw data stored in the S3 bucket]{images/raw_s3.png}\
 Cleaned data stored in the S3 bucket:
 ![Clean data stored in the S3 bucket]{images/clean_s3.png}\
-end text
+Using all of this data, I have written a Python notebook (analysis.ipynb above) to extract data which we can put into into a team report (also above, Report.pdf).
+
+## Areas for Improvement
+- Gathering data from more sources.
+- Using cron jobs on the EC2 instance to automate the scraping and cleaning scripts, therefore automating some of the workload.
+- Creating a central SQL database, where players/teams can be added to avoid having to scrape their data multiple times.
+- Getting metrics for all teams in the league, to help compare the team report with league average statistics.
+- Outputting data to something like PowerBI, so that reporting dashboards can automatically update when new data comes in.
