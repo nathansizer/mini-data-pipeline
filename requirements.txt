@@ -1,0 +1,4 @@
+requests
+pandas
+scraperfc
+boto3
